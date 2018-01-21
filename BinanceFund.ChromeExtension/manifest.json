@@ -1,0 +1,10 @@
+﻿{
+  "manifest_version": 2,
+  "name": "Binance Account Info",
+  "version": "1.0",
+  "browser_action": {
+    "default_title": "Binance Account Info",
+    "default_popup": "index.html"
+  },
+  "permissions": [ "https://api.binance.com/*" ]
+}

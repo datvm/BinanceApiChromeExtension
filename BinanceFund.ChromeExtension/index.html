@@ -1,0 +1,166 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link async rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Binance Account Info</title>
+
+    <style>
+        html {
+            max-width: 100%;
+            width: 700px;
+        }
+
+        body {
+            margin: 10px;
+            overflow-x: hidden;
+        }
+
+        .monospace {
+            font-family: Consolas, monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Exchange Rate</h3>
+
+                <div class="card-text">
+                    <p id="lbl-no-exchange-rate" class="text-danger">
+                        Exchange rate was not updated due to some problem.
+                    </p>
+
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Currency</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl-exchange"></tbody>
+                    </table>
+
+                    // TODO: Add settings
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h3 class="card-title">Account</h3>
+
+                <div class="card-text">
+                    <p id="lbl-no-account-info" class="text-danger">
+                        Account info not updated or
+                        <a href="#lbl-settings">wrong/no settings</a>.
+                    </p>
+
+                    <div>
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Currency</th>
+                                    <th>Free</th>
+                                    <th>Locked</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="lst-balances"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form id="frm-settings" class="card mt-5">
+            <div class="card-body">
+                <h3 id="lbl-settings" class="card-title">Settings</h3>
+
+                <div class="card-text">
+                    <div class="form-group row">
+                        <label class="col-sm-6 col-form-label">Account API Key</label>
+                        <div class="col-sm-6">
+                            <input data-settings="accountApiKey" type="text" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-6 col-form-label">Account Secret</label>
+                        <div class="col-sm-6">
+                            <input data-settings="accountApiSecret" type="password" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-6 col-form-label">
+                            Refresh Rate <small>Default: 10</small>
+                        </label>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input data-settings="refreshRate" type="number" class="form-control"
+                                       min="1" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">seconds</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div>
+                        <label id="lbl-updating" class="col-form-label text-warning">
+                            Updating...
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-save-settings" class="btn btn-primary">
+                    Save Settings
+                </button>
+            </div>
+            <div class="card-footer">
+                <small>
+                    The page should automatically reload
+                    after saving the settings to take full effect.
+                </small>
+            </div>
+        </form>
+    </div>
+
+    <template id="template-exchange">
+        <tr>
+            <td class="no"></td>
+            <td class="currency"></td>
+            <td class="value"></td>
+        </tr>
+    </template>
+
+    <template id="template-balances">
+        <tr>
+            <td class="no"></td>
+            <td class="currency"></td>
+            <td class="text-right monospace">
+                <span class="free"></span><br />
+                USDT <span class="usd-free"></span>
+            </td>
+            <td class="text-right monospace">
+                <span class="locked"></span><br />
+                USDT <span class="usd-locked"></span>
+            </td>
+            <td class="text-right monospace">
+                <span class="total"></span><br />
+                USDT <span class="usd-total"></span>
+            </td>
+        </tr>
+    </template>
+
+    <script defer src="js/jquery.js"></script>
+    <script defer src="js/sha256.js"></script>
+    <script defer src="js/app.js"></script>
+</body>
+</html>
