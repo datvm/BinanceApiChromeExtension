@@ -53,7 +53,7 @@ function updateAccountInfo() {
         let fail = function () {
             $("#lbl-no-account-info").removeClass("invisible");
             resolve();
-        }
+        };
 
         if (apiKey && secret) {
             let data = { recvWindow: 100000, };
@@ -90,17 +90,20 @@ function updateAccountInfo() {
                             row.find(".usd-free")
                                 .html("...")
                                 .attr("data-currency-amount", free)
-                                .attr("data-currency", balance.asset);
+                                .attr("data-currency", balance.asset)
+                                .attr("data-currency-category", "free");
 
                             row.find(".usd-locked")
                                 .html("...")
                                 .attr("data-currency-amount", locked)
-                                .attr("data-currency", balance.asset);
+                                .attr("data-currency", balance.asset)
+                                .attr("data-currency-category", "locked");
 
                             row.find(".usd-total")
                                 .html("...")
                                 .attr("data-currency-amount", total)
-                                .attr("data-currency", balance.asset);
+                                .attr("data-currency", balance.asset)
+                                .attr("data-currency-category", "total");
 
 
 
@@ -146,6 +149,8 @@ function updateCurrencyExchange() {
         return;
     }
 
+    var total = {};
+
     $("[data-currency]").each(function () {
         let e = $(this);
 
@@ -167,6 +172,51 @@ function updateCurrencyExchange() {
 
         let exchangedValue = originalValue * exchangeRate;
         e.html(NUMBER_FORMATTER.format(exchangedValue));
+
+        var category = e.attr("data-currency-category");
+        if (total[category]) {
+            total[category] += exchangedValue;
+        } else {
+            total[category] = exchangedValue;
+        }
+    });
+
+    var balanceTotal = $($("#template-balance-total").html());
+
+    balanceTotal.find(".usd-free").html(NUMBER_FORMATTER.format(total["free"]));
+    balanceTotal.find(".usd-locked").html(NUMBER_FORMATTER.format(total["locked"]));
+    balanceTotal.find(".usd-total").html(NUMBER_FORMATTER.format(total["total"]));
+
+    showBadgeNumber(total["total"]);
+
+    $("#lst-balances").append(balanceTotal);
+}
+
+function showBadgeNumber(number) {
+    var show = Math.floor(number).toString();
+
+    if (number > 1000) {
+        number /= 1000;
+        show = Math.floor(number) + "k";
+    }
+
+    if (number > 1000) {
+        number /= 1000;
+        show = Math.floor(number) + "M";
+    }
+
+    if (number > 1000) {
+        number /= 1000;
+        show = Math.floor(number) + "B";
+    }
+
+    if (number > 1000) {
+        number /= 1000;
+        show = Math.floor(number) + "T";
+    }
+
+    chrome.browserAction.setBadgeText({
+        text: show,
     });
 }
 

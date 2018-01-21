@@ -27,31 +27,6 @@
 <body>
 
     <div class="container-fluid">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">Exchange Rate</h3>
-
-                <div class="card-text">
-                    <p id="lbl-no-exchange-rate" class="text-danger">
-                        Exchange rate was not updated due to some problem.
-                    </p>
-
-                    <table class="table table-bordered table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Currency</th>
-                                <th>Value</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbl-exchange"></tbody>
-                    </table>
-
-                    // TODO: Add settings
-                </div>
-            </div>
-        </div>
-
         <div class="card mt-5">
             <div class="card-body">
                 <h3 class="card-title">Account</h3>
@@ -76,6 +51,31 @@
                             <tbody id="lst-balances"></tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">Exchange Rate</h3>
+
+                <div class="card-text">
+                    <p id="lbl-no-exchange-rate" class="text-danger">
+                        Exchange rate was not updated due to some problem.
+                    </p>
+
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Currency</th>
+                                <th>Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbl-exchange"></tbody>
+                    </table>
+
+                    // TODO: Add settings
                 </div>
             </div>
         </div>
@@ -154,6 +154,21 @@
             </td>
             <td class="text-right monospace">
                 <span class="total"></span><br />
+                USDT <span class="usd-total"></span>
+            </td>
+        </tr>
+    </template>
+
+    <template id="template-balance-total">
+        <tr class="text-right">
+            <td colspan="2"><strong>Total</strong></td>
+            <td class="monospace">
+                USDT <span class="usd-free"></span>
+            </td>
+            <td class="monospace">
+                USDT <span class="usd-locked"></span>
+            </td>
+            <td class="monospace">
                 USDT <span class="usd-total"></span>
             </td>
         </tr>
